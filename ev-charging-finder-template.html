@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EV Charging Finder | Astra-style Template</title>
+  <style>
+    :root {
+      --ast-global-color-0: #0f172a;
+      --ast-global-color-1: #2563eb;
+      --ast-global-color-2: #0ea5e9;
+      --ast-global-color-3: #e2e8f0;
+      --ast-global-color-4: #ffffff;
+      --ast-global-color-5: #16a34a;
+      --ast-global-color-6: #334155;
+      --radius: 14px;
+      --shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f8fafc;
+      color: var(--ast-global-color-0);
+      line-height: 1.5;
+    }
+
+    .site-header {
+      background: var(--ast-global-color-4);
+      border-bottom: 1px solid var(--ast-global-color-3);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ast-global-color-1);
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 56px 0 24px;
+      background: linear-gradient(135deg, #dbeafe, #ecfeff 55%, #f8fafc);
+      border-bottom: 1px solid var(--ast-global-color-3);
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--ast-global-color-6);
+    }
+
+    .finder-wrap {
+      padding: 28px 0 54px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 320px 1fr;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--ast-global-color-4);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--ast-global-color-3);
+    }
+
+    .filters {
+      padding: 18px;
+      position: sticky;
+      top: 84px;
+    }
+
+    .filters h2,
+    .results h2 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--ast-global-color-6);
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font: inherit;
+      color: #0f172a;
+    }
+
+    .btn {
+      width: 100%;
+      border: 0;
+      background: var(--ast-global-color-1);
+      color: #fff;
+      font-weight: 600;
+      padding: 11px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .btn:hover { filter: brightness(1.05); }
+
+    .results {
+      padding: 18px;
+    }
+
+    .result-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .station {
+      border: 1px solid var(--ast-global-color-3);
+      border-radius: 12px;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .station-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .station-name {
+      margin: 0;
+      font-size: 1.02rem;
+    }
+
+    .meta {
+      color: var(--ast-global-color-6);
+      font-size: 0.92rem;
+    }
+
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #dcfce7;
+      color: #166534;
+      white-space: nowrap;
+    }
+
+    .badge.busy {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .empty-state {
+      padding: 18px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      color: var(--ast-global-color-6);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .finder-wrap { grid-template-columns: 1fr; }
+      .filters { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#">Astra EV Finder</a>
+      <small>Template demo</small>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Find EV Charging Stations Fast</h1>
+      <p>
+        Astra-style section template for an electric vehicle charging finder page.
+        Filter by location keyword, connector type, and station availability.
+      </p>
+    </div>
+  </section>
+
+  <main class="container finder-wrap">
+    <aside class="card filters" aria-label="station filters">
+      <h2>Filter Stations</h2>
+      <form id="finder-form">
+        <div class="field">
+          <label for="keyword">City or area</label>
+          <input id="keyword" name="keyword" type="text" placeholder="e.g., Downtown" />
+        </div>
+
+        <div class="field">
+          <label for="connector">Connector type</label>
+          <select id="connector" name="connector">
+            <option value="all">All connectors</option>
+            <option value="ccs">CCS</option>
+            <option value="chademo">CHAdeMO</option>
+            <option value="type2">Type 2</option>
+            <option value="tesla">Tesla/NACS</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="availability">Availability</label>
+          <select id="availability" name="availability">
+            <option value="all">Any</option>
+            <option value="available">Available now</option>
+          </select>
+        </div>
+
+        <button class="btn" type="submit">Find charging stations</button>
+      </form>
+    </aside>
+
+    <section class="card results" aria-live="polite">
+      <h2>Nearby Results</h2>
+      <ul id="result-list" class="result-list"></ul>
+    </section>
+  </main>
+
+  <script>
+    const stations = [
+      { name: 'Green Mall Supercharger', area: 'Downtown', connector: 'tesla', speed: '250kW', available: true },
+      { name: 'City Library Charging Hub', area: 'Midtown', connector: 'ccs', speed: '120kW', available: false },
+      { name: 'River Park EV Point', area: 'Downtown', connector: 'type2', speed: '22kW', available: true },
+      { name: 'North Plaza Fast Charge', area: 'Uptown', connector: 'chademo', speed: '50kW', available: true },
+      { name: 'Airport Long Stay Chargers', area: 'Airport', connector: 'ccs', speed: '180kW', available: false }
+    ];
+
+    const form = document.getElementById('finder-form');
+    const resultList = document.getElementById('result-list');
+
+    function render(list) {
+      resultList.innerHTML = '';
+
+      if (!list.length) {
+        resultList.innerHTML = '<li class="empty-state">No stations match your filters. Try broadening your search.</li>';
+        return;
+      }
+
+      list.forEach(station => {
+        const li = document.createElement('li');
+        li.className = 'station';
+        li.innerHTML = `
+          <div class="station-header">
+            <h3 class="station-name">${station.name}</h3>
+            <span class="badge ${station.available ? '' : 'busy'}">${station.available ? 'Available' : 'Busy'}</span>
+          </div>
+          <div class="meta">Area: ${station.area}</div>
+          <div class="meta">Connector: ${station.connector.toUpperCase()} • Max speed: ${station.speed}</div>
+        `;
+        resultList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const keyword = form.keyword.value.trim().toLowerCase();
+      const connector = form.connector.value;
+      const availability = form.availability.value;
+
+      const filtered = stations.filter(station => {
+        const keywordMatch = !keyword || station.area.toLowerCase().includes(keyword) || station.name.toLowerCase().includes(keyword);
+        const connectorMatch = connector === 'all' || station.connector === connector;
+        const availabilityMatch = availability === 'all' || station.available;
+        return keywordMatch && connectorMatch && availabilityMatch;
+      });
+
+      render(filtered);
+    });
+
+    render(stations);
+  </script>
+</body>
+</html>
